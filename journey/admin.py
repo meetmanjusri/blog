@@ -5,7 +5,7 @@ from .models import Post, Comment
 
 @admin.register(Post)
 class PostAdmin(admin.ModelAdmin):
-    list_display = ('title', 'author', 'image_url', 'image_field', 'visited_places', 'visited_date', 'favorite_place', 'address', 'city', 'postal_code', 'favorite_activity', 'description', 'publish')
+    list_display = ('title', 'author', 'image_url', 'visited_places', 'visited_date', 'favorite_place', 'address', 'city', 'postal_code', 'favorite_activity', 'description', 'publish')
 
 
 @admin.register(Comment)

@@ -7,7 +7,6 @@ class Post(models.Model):
     title = models.CharField(max_length=250)
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='blog_posts')
     image_url = models.URLField()
-    image_field = models.ImageField(upload_to='images')
     visited_places = models.CharField(max_length=100)
     visited_date = models.DateField('Date')
     favorite_place = models.CharField(max_length=250)
