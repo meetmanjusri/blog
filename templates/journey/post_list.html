@@ -1,10 +1,51 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-
-</body>
-</html>
+{% extends "journey/base.html" %}
+{% load static %}
+{% block title %}Posts{% endblock %}
+{% block content %}
+    <style>
+        img {
+            height: 300px;
+            object-fit: cover;
+        }
+    </style>
+    <div class="row">
+        <div class="col-md-4">
+            <h1>Diary of Journey</h1>
+            <h4>Share your experience to others</h4>
+        </div>
+        <div class="col-md-8 d-flex flex-row-reverse">
+{#            Reference - https://linuxhint.com/build-a-basic-search-for-a-django/#}
+            <form action="{% url 'journey:post_list' %}" class="form-inline" method="get">
+                <input name="search" type="" class="col-md-" id="" placeholder="Search Products">
+                <button type="submit" class="btn btn-outline-dark">Search</button>
+            </form>
+        </div>
+    </div>
+{#        Reference - https://startbootstrap.com/template/shop-homepage#}
+    <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-sm-1 row-cols-lg-4 row-cols-xl-4 justify-content-center">
+        {% for post in posts %}
+            <div class="col mb-5">
+                <div class="card h-100">
+                    <!-- Post image-->
+                    <img class="card-img-top" src="
+                            {{ post.image.url }}">
+                    <!-- Post details-->
+                    <div class="card-body p-3">
+                        <div class="text-left">
+                            <!-- Post title-->
+                            <h5 class="fw-bolder">{{ post.title }}</h5>
+                            <!-- Post Author-->
+                            <h5 class="fw-bolder">{{ post.author }}</h5>
+                        </div>
+                    </div>
+                    <!-- Post actions-->
+                    <div class="card-footer p-4 pt-0 border-top-0 bg-transparent text-center">
+                        <form action="{% url "journey:post_detail" %}" method="post">
+                            {% csrf_token %}
+                        </form>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
