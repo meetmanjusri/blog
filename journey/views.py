@@ -4,6 +4,7 @@ from django.shortcuts import get_object_or_404
 from .models import *
 from .forms import *
 from django.shortcuts import render, redirect
+from django.views.decorators.http import require_POST
 
 now = timezone.now()
 
@@ -57,6 +58,13 @@ def post_delete(request, pk):
     post = get_object_or_404(Post, pk=pk)
     post.delete()
     return redirect('journey:post_detail')
+
+
+@login_required
+def blog_post(request, post_id):
+    post = get_object_or_404(Post, id=post_id)
+    return render(request, 'journey/blog_post.html',
+                  {'post': post})
 
 
 @login_required

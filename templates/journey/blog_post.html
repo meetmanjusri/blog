@@ -1,0 +1,29 @@
+{% extends "journey/base.html" %}
+{% load static %}
+{% block title %}Posts{% endblock %}
+{% block content %}
+
+    <div class="row">
+         <div class="col-md-4">
+        <h4>{{ post.title }}</h4>
+        <div class="img">
+             <img class="card-img-top" src="{{ post.image_url }}">
+        </div>
+
+        <p> <br></p>
+        <h6></h6>
+        <th>{{ post.favorite_activity }}</th>
+        <table>
+            <tr>
+                <td>
+                    <h5>Description</h5>
+                    <ul id="hobbies">
+                        <li>{{ post.description }}</li>
+                    </ul>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+
+{% endblock %}
