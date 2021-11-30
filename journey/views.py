@@ -63,8 +63,25 @@ def post_delete(request, pk):
 @login_required
 def blog_post(request, post_id):
     post = get_object_or_404(Post, id=post_id)
+    # List of active comments for this post
+    comments = post.comments.filter()
+    new_comment = None
+    if request.method == 'POST':
+        # A comment was posted
+        comment_form = CommentForm(data=request.POST)
+        if comment_form.is_valid():
+            # Create Comment object but don't save to database yet
+            new_comment = comment_form.save(commit=False)
+            # Assign the current post to the comment
+            new_comment.post = post
+            # Save the comment to the database
+            new_comment.save()
+    else:
+        comment_form = CommentForm()
     return render(request, 'journey/blog_post.html',
-                  {'post': post})
+                  {'post': post, 'comments': comments,
+                   'new_comment': new_comment,
+                   'comment_form': comment_form})
 
 
 @login_required
@@ -74,18 +91,18 @@ def comment_list(request):
                   {'comments': comments})
 
 
-@login_required
-def comment_new(request):
-    if request.method == "POST":
-        form = CommentForm(request.POST)
-        if form.is_valid():
-            comment = form.save(commit=False)
-            comment.created_date = timezone.now()
-            comment.save()
-            return redirect('journey:comment_list')
-    else:
-        form = CommentForm()
-    return render(request, 'journey/comment_new.html', {'form': form})
+# @login_required
+# def comment_new(request):
+#     if request.method == "POST":
+#         form = CommentForm(request.POST)
+#         if form.is_valid():
+#             comment = form.save(commit=False)
+#             comment.created_date = timezone.now()
+#             comment.save()
+#             return redirect('journey:comment_list')
+#     else:
+#         form = CommentForm()
+#     return render(request, 'journey/comment_new.html', {'form': form})
 
 
 @login_required

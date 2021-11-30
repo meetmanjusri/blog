@@ -1,14 +1,15 @@
 {% extends 'journey/base.html' %}
 {% block content %}
     <h1 style="padding-left: -40px; font-weight: bold; margin-top:10px">Comment Details</h1>
-    <a href="{% url 'journey:comment_new' %}" class="btn btn-outline-dark" role="button">Add Comment</a>
+{#    <a href="{% url 'journey:comment_new' %}" class="btn btn-outline-dark" role="button">Add Comment</a>#}
     <section class="py-3">
         <div class="table-responsive">
             <table class="table table-striped table-hover">
                 <thead>
                 <tr>
                     <th>Post</th>
-                    <th>Name</th>
+                    <th>Post Author</th>
+                    <th>Commenter</th>
                     <th>Email</th>
                     <th>Body</th>
                     <th>Created Date</th>
@@ -19,7 +20,8 @@
                 <tbody>
                 {% for comment in comments %}
                     <tr>
-                        <td>{{ comment.post }}</td>
+                        <td>{{ comment.post.title }}</td>
+                        <td>{{ comment.post.author }}</td>
                         <td>{{ comment.name }}</td>
                         <td>{{ comment.email }}</td>
                         <td>{{ comment.body }}</td>
