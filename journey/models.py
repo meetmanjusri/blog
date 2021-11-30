@@ -37,4 +37,4 @@ class Meta:
 
 
 def __str__(self):
-    return f'Comment by {self.name} on {self.post}'
+    return f'Comment by {self.body} on {self.body}'

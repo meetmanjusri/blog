@@ -13,7 +13,7 @@ now = timezone.now()
 
 def post_list(request):
     object_list = Post.objects.all()
-    paginator = Paginator(object_list, 6)  # 6 posts in each page
+    paginator = Paginator(object_list, 8)  # 8 posts in each page
     page = request.GET.get('page')
     try:
         posts = paginator.page(page)
@@ -74,7 +74,6 @@ def post_delete(request, pk):
     return redirect('journey:post_detail')
 
 
-@login_required
 def blog_post(request, post_id):
     post = get_object_or_404(Post, id=post_id)
     # List of active comments for this post
@@ -88,6 +87,8 @@ def blog_post(request, post_id):
             new_comment = comment_form.save(commit=False)
             # Assign the current post to the comment
             new_comment.post = post
+            new_comment.name = request.user.first_name
+            new_comment.email = request.user.email
             # Save the comment to the database
             new_comment.save()
     else:
@@ -102,22 +103,7 @@ def blog_post(request, post_id):
 def comment_list(request):
     comments = Comment.objects.all()
     return render(request, 'journey/comment_list.html',
-                  {'comments': comments})
-
-
-# @login_required
-# def comment_new(request):
-#     if request.method == "POST":
-#         form = CommentForm(request.POST)
-#         if form.is_valid():
-#             comment = form.save(commit=False)
-#             comment.created_date = timezone.now()
-#             comment.save()
-#             return redirect('journey:comment_list')
-#     else:
-#         form = CommentForm()
-#     return render(request, 'journey/comment_new.html', {'form': form})
-
+              {'comments': comments})
 
 @login_required
 def comment_edit(request, pk):
