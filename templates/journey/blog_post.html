@@ -4,26 +4,57 @@
 {% block content %}
 
     <div class="row">
-         <div class="col-md-4">
-        <h4>{{ post.title }}</h4>
-        <div class="img">
-             <img class="card-img-top" src="{{ post.image_url }}">
+        <div class="col-md-4">
+            <h4>{{ post.title }}</h4>
+            <h4>{{ post.author }}</h4>
+            <div class="table">
+                <div class=”row”>
+                    <div class = "info">
+                        <img class="card-img-top" style="width: 600px; height: 400px;" src="{{ post.image_url }}">
+                    </div>
+                </div>
+                    <div class = "table" style="float: right" >
+                        <div>{{ post.favorite_activity }}</div>
+                    </div>
+            </div>
+            <table>
+                <tr>
+                    <td>
+                        <h5>Description</h5>
+                        <ul id="hobbies">
+                            <li>{{ post.description }}</li>
+                        </ul>
+                    </td>
+                </tr>
+            </table>
         </div>
-
-        <p> <br></p>
-        <h6></h6>
-        <th>{{ post.favorite_activity }}</th>
-        <table>
-            <tr>
-                <td>
-                    <h5>Description</h5>
-                    <ul id="hobbies">
-                        <li>{{ post.description }}</li>
-                    </ul>
-                </td>
-            </tr>
-        </table>
+        {% with comments.count as total_comments %}
+            <h5>
+                {{ total_comments }} comment{{ total_comments|pluralize }}
+            </h5>
+        {% endwith %}
+        {% for comment in comments %}
+            <div class="comment">
+                <p class="info">
+                    Comment {{ forloop.counter }} by {{ comment.name }}
+                    {{ comment.created }}
+                </p>
+                {{ comment.body|linebreaks }}
+            </div>
+        {% empty %}
+            <p>There are no comments yet.</p>
+        {% endfor %}
+        {% if user.is_authenticated %}
+            {% if new_comment %}
+                <h5>Your comment has been added.</h5>
+            {% else %}
+                <h5>Add a new comment</h5>
+                <form method="post">
+                    {{ comment_form.as_p }}
+                    {% csrf_token %}
+                    <p><input type="submit" value="Add comment"></p>
+                </form>
+            {% endif %}
+        {% endif %}
     </div>
-
-
 {% endblock %}
