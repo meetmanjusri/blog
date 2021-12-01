@@ -18,7 +18,6 @@ class Post(models.Model):
     # Reference - https://www.youtube.com/watch?v=mF5jzSXb1dc
     description = RichTextField(blank=True, null=True)
     publish = models.DateTimeField(default=timezone.now)
-    created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
     def __str__(self):

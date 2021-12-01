@@ -2,34 +2,29 @@
 {% load static %}
 {% block title %}Posts{% endblock %}
 {% block content %}
+
     <div class="container">
         <div class="row">
-            <div class="col-md-6">
-                <h4>{{ post.title }}</h4>
-                <h4>{{ post.author.get_full_name }}</h4>
-                <div class=”col-md-6”>
-                    {#                    <div class="table">#}
-
-                        <img class="card-img-top" style="width: 600px; height: 400px;" src="{{ post.image_url }}">
-
-                    {#                    </div>#}
-                </div>
-                <div class="col-md-6">
-                    {#                    <div class = "table" style="float: left" >#}
-                    {{ post.favorite_activity }}
-                    {#                    </div>#}
-                </div>
+            <h2 class="fs-4 fw-bold">{{ post.title }}</h2>
+            <h2 class="fs-5 fst-italic">{{ post.author.get_full_name }}</h2>
+        </div>
+        <div class="row">
+            <div class="col-sm-6 col-md-6">
+                <img class="card-img-top" style="width: 600px; height: 400px;" src="{{ post.image_url }}" alt="image">
             </div>
-            <table>
-                <tr>
-                    <td>
-                        <h5>Description</h5>
-                        <ul id="hobbies">
-                            <li>{{ post.description|safe }}</li>
-                        </ul>
-                    </td>
-                </tr>
-            </table>
+            <div class="col-sm-6 col-md-6" style="margin-top:20px;">
+                <p>Visited Places: {{ post.visited_places }}</p>
+                <p>Visited Date: {{ post.visited_date }}</p>
+                <p>Favorite Place: {{ post.favorite_place }}</p>
+                <p>Address: {{ post.address }}</p>
+                <p>City: {{ post.city }}</p>
+                <p>Postal Code: {{ post.postal_code }}</p>
+                <p>Favorite Activity: {{ post.favorite_activity }}</p>
+            </div>
+        </div>
+        <div class="row" style= "padding-top: 5px;">
+            <h4>Description</h4>
+            <p>{{ post.description|safe }}</p>
         </div>
         {% with comments.count as total_comments %}
             <h5>
@@ -48,17 +43,13 @@
             <p>There are no comments yet.</p>
         {% endfor %}
         {% if user.is_authenticated %}
-            {% if new_comment %}
-                <h5>Your comment has been added.</h5>
-            {% else %}
-                <h5>Add a new comment</h5>
-                <form method="post">
-                    {{ comment_form.media }}
-                    {{ comment_form.as_p }}
-                    {% csrf_token %}
-                    <p><input type="submit" value="Add comment"></p>
-                </form>
-            {% endif %}
+            <h5>Add a new comment</h5>
+            <form method="post">
+                {{ comment_form.media }}
+                {{ comment_form.as_p }}
+                {% csrf_token %}
+                <p><input type="submit" value="Add comment"></p>
+            </form>
         {% endif %}
     </div>
 {% endblock %}

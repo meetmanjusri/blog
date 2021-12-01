@@ -7,7 +7,6 @@ from .models import *
 from .forms import *
 from django.shortcuts import render, redirect
 from django.db.models import Q
-from django.http import HttpResponse, HttpResponseRedirect
 
 now = timezone.now()
 
@@ -25,7 +24,7 @@ def post_list(request):
 
     # object_list = Post.objects.all()
 
-    paginator = Paginator(object_list, 8)  # 8 posts in each page
+    paginator = Paginator(object_list, 6)  # 6 posts in each page
     page = request.GET.get('page')
     try:
         posts = paginator.page(page)
@@ -104,11 +103,11 @@ def blog_post(request, post_id):
             new_comment.email = request.user.email
             # Save the comment to the database
             new_comment.save()
+            comment_form = CommentForm()
     else:
         comment_form = CommentForm()
     return render(request, 'journey/blog_post.html',
                   {'post': post, 'comments': comments,
-                   'new_comment': new_comment,
                    'comment_form': comment_form})
 
 
@@ -154,5 +153,5 @@ def signup(request):
             return redirect("journey:post_list")
     else:
         user_form = CreateUserAccountForm()
-    return render(request, 'journey/signup.html', {'user_form': user_form })
+    return render(request, 'journey/signup.html', {'user_form': user_form})
 
