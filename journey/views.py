@@ -18,9 +18,10 @@ def post_list(request):
         query = request.GET.get('search')
         if query == '' or query is None:
             query = 'None'
-            object_list = Post.objects.all()
+            #Reference - https://stackoverflow.com/questions/44033670/python-django-rest-framework-unorderedobjectlistwarning
+            object_list = Post.objects.all().order_by('-publish')
         else:
-            object_list = Post.objects.filter(Q(title__icontains=query) | Q(author__first_name__icontains =query) | Q(author__last_name__contains =query) | Q(description__in=query))
+            object_list = Post.objects.order_by('-publish').filter(Q(title__icontains=query) | Q(author__first_name__icontains=query) | Q(author__last_name__icontains=query) | Q(description__icontains=query))
 
     # object_list = Post.objects.all()
 
@@ -53,6 +54,7 @@ def post_new(request):
         form = PostForm(request.POST)
         if form.is_valid():
             post = form.save(commit=False)
+            post.author = request.user
             post.created_date = timezone.now()
             post.save()
             return redirect('journey:post_list')
@@ -143,12 +145,8 @@ def comment_delete(request, pk):
 def signup(request):
     if request.method == 'POST':
         user_form = CreateUserAccountForm(request.POST)
-        author_form = SignUpForm(request.POST)
-        if author_form.is_valid() and user_form.is_valid():
-            new_user = user_form.save()
-            author = author_form.save(commit=False)
-            author.user = new_user
-            author.save()
+        if user_form.is_valid():
+            user_form.save()
             username = user_form.cleaned_data.get('username')
             password = user_form.cleaned_data.get('password1')
             user = authenticate(username=username, password=password)
@@ -156,6 +154,5 @@ def signup(request):
             return redirect("journey:post_list")
     else:
         user_form = CreateUserAccountForm()
-        author_form = SignUpForm()
-    return render(request, 'journey/signup.html', {'user_form': user_form, 'author_form': author_form})
+    return render(request, 'journey/signup.html', {'user_form': user_form })
 
