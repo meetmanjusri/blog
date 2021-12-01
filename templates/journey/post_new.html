@@ -3,20 +3,23 @@
 {% extends 'journey/base.html' %}
 {% block content %}
     <h1>Add a new post</h1>
-    <form method="POST" class="post-form" enctype='multipart/form-data'>{% csrf_token %}
-        {% for field in form %}
-            <p>
-                {{ field.label_tag }}<br>
-                {{ field }}
-                {% if field.help_text %}
-                    <small style="color: grey">{{ field.help_text }}</small>
-                {% endif %}
-                {% for error in field.errors %}
-                    <p style="color: red">{{ error }}</p>
-                {% endfor %}
-            </p>
-        {% endfor %}
-        <button type="submit" class="btn btn-outline-dark">Save</button>
-    </form>
+    <div class='form-group'>
+        <form method="POST" enctype='multipart/form-data'>{% csrf_token %}
+            {{ form.media }}
+            {% for field in form %}
+                <p>
+                    {{ field.label_tag }}<br>
+                    {{ field }}
+                    {% if field.help_text %}
+                        <small style="color: grey">{{ field.help_text }}</small>
+                    {% endif %}
+                    {% for error in field.errors %}
+                        <p style="color: red">{{ error }}</p>
+                    {% endfor %}
+                </p>
+            {% endfor %}
+            <button type="submit" class="btn btn-outline-dark">Save</button>
+        </form>
+    </div>
 {% endblock %}
 </html>

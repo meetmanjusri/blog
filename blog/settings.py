@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'journey',
+    'ckeditor',
 ]
 
 MIDDLEWARE = [
@@ -133,5 +134,6 @@ EMAIL_HOST_USER = 'smtpdjango2021@gmail.com'
 EMAIL_HOST_PASSWORD = 'Assignment1!'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
+
 
 

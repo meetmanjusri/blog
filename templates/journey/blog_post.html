@@ -25,7 +25,7 @@
                     <td>
                         <h5>Description</h5>
                         <ul id="hobbies">
-                            <li>{{ post.description }}</li>
+                            <li>{{ post.description|safe }}</li>
                         </ul>
                     </td>
                 </tr>
@@ -42,7 +42,7 @@
                     Comment {{ forloop.counter }} by {{ comment.name }}
                     {{ comment.created }}
                 </p>
-                {{ comment.body|linebreaks }}
+                {{ comment.body|safe }}
             </div>
         {% empty %}
             <p>There are no comments yet.</p>
@@ -53,6 +53,7 @@
             {% else %}
                 <h5>Add a new comment</h5>
                 <form method="post">
+                    {{ comment_form.media }}
                     {{ comment_form.as_p }}
                     {% csrf_token %}
                     <p><input type="submit" value="Add comment"></p>
