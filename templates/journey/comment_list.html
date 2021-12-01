@@ -21,7 +21,7 @@
                 {% for comment in comments %}
                     <tr>
                         <td>{{ comment.post.title }}</td>
-                        <td>{{ comment.post.author }}</td>
+                        <td>{{ comment.post.author.get_full_name }}</td>
                         <td>{{ comment.name }}</td>
                         <td>{{ comment.email }}</td>
                         <td>{{ comment.body|safe }}</td>

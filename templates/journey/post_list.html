@@ -9,11 +9,7 @@
         }
     </style>
     <div class="row">
-        <div class="col-md-4">
-            <h1 class="position-absolute top-10 start-50 translate-middle">Diary of Journey</h1>
-            <h4 class="">Share your experience to others</h4>
-        </div>
-        <div class="col-md-8 d-flex flex-row-reverse">
+        <div class="col-md-12 d-flex flex-row-reverse">
             {#            Reference - https://linuxhint.com/build-a-basic-search-for-a-django/#}
             <form action="{% url 'journey:post_list' %}" class="form-inline" method="get">
                 <input name="search" type="" class="col-md-" id="" placeholder="Search Posts">

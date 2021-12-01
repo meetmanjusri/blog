@@ -35,7 +35,7 @@
                 {% for post in posts %}
                     <tr>
                         <td>{{ post.title }}</td>
-                        <th>{{ post.author }}</th>
+                        <th>{{ post.author.get_full_name }}</th>
                         <td>{{ post.image_url }}></td>
                         <td>{{ post.visited_places }}</td>
                         <td>{{ post.visited_date }}</td>
