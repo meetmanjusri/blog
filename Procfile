@@ -1,0 +1,1 @@
+web: gunicorn aafrs.wsgi --log-file -
