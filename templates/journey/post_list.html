@@ -10,20 +10,19 @@
     </style>
 
     {#        Reference - https://startbootstrap.com/template/shop-homepage#}
-    <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-sm-1 row-cols-lg-4 row-cols-xl-4 justify-content-right">
+    <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-sm-1 row-cols-lg-3 row-cols-xl-3 justify-content-right">
         {% for post in posts %}
             <div class="col mb-5">
                 <div class="card h-100">
                     <!-- Post image-->
-                    <img class="card-img-top" src="
-                                    {{ post.image_url }}">
+                    <img class="card-img-top" src="{{ post.image_url }}">
                     <!-- Post details-->
                     <div class="card-body p-3">
                         <div class="text-left">
                             <!-- Post title-->
-                            <a class="btn btn-link" href="{% url 'journey:blog_post' post_id=post.pk %}" ><h5>{{ post.title }}</h5></a>
+                            <a href="{% url 'journey:blog_post' post_id=post.pk %}" ><p class="fs-4">{{ post.title }}</p></a>
                             <!-- Post Author-->
-                            <h5 class="fw-bolder">{{ post.author.get_full_name }}</h5>
+                            <p class="fs-5 fst-italic">{{ post.author.get_full_name }}</p>
                         </div>
                     </div>
                 </div>
