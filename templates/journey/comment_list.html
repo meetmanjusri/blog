@@ -24,7 +24,7 @@
                         <td>{{ comment.post.author }}</td>
                         <td>{{ comment.name }}</td>
                         <td>{{ comment.email }}</td>
-                        <td>{{ comment.body }}</td>
+                        <td>{{ comment.body|safe }}</td>
                         <td>{{ comment.created}}</td>
                         <td>{{ comment.updated}}</td>
                         <td><a href="{% url 'journey:comment_edit' pk=comment.pk %}"

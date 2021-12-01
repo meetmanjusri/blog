@@ -2,8 +2,9 @@
 <html lang="en">
 {% extends 'journey/base.html' %}
 {% block content %}
-    <h1>Edit Unit</h1>
-    <form method="POST" class="unit-form">{% csrf_token %}
+    <h1>Edit Comment</h1>
+    <form method="POST" class="comment-form">{% csrf_token %}
+        {{ form.media }}
         {% for field in form %}
             <p>
                 {{ field.label_tag }}<br>
