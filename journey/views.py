@@ -6,13 +6,24 @@ from django.core.paginator import Paginator, EmptyPage,\
 from .models import *
 from .forms import *
 from django.shortcuts import render, redirect
+from django.db.models import Q
 from django.http import HttpResponse, HttpResponseRedirect
 
 now = timezone.now()
 
 
 def post_list(request):
-    object_list = Post.objects.all()
+    object_list = []
+    if request.method == "GET":
+        query = request.GET.get('search')
+        if query == '' or query is None:
+            query = 'None'
+            object_list = Post.objects.all()
+        else:
+            object_list = Post.objects.filter(Q(title__icontains=query) | Q(author__first_name__icontains =query) | Q(author__last_name__contains =query) | Q(description__in=query))
+
+    # object_list = Post.objects.all()
+
     paginator = Paginator(object_list, 8)  # 8 posts in each page
     page = request.GET.get('page')
     try:
