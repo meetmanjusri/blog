@@ -20,13 +20,13 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-42uc#it$1&89pna5qrq9_tsj*su2h&ke49)3$$gcy_k*@5)j-l'
+SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False  # For heroku
-# DEBUG = True # For Local
+# DEBUG = False  # For heroku
+DEBUG = os.environ.get('DEBUG')  # For Local
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1', 'diaryofjourney.herokuapp.com/']
 
 # Application definition
 
@@ -71,20 +71,20 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'blog.wsgi.application'
-
+# Postgres database
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'diaryofjourney',
-        'USER': 'manju',
-        'PASSWORD': 'cms@123'
+        'NAME': os.environ.get('DOJ_DBNAME'),
+        'USER': os.environ.get('DB_USER'),
+        'PASSWORD': os.environ.get('DB_PASSWORD'),
     }
 }
 
 
-# # Database
-# # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
-#
+# Database
+# https://docs.djangoproject.com/en/3.2/ref/settings/#databases
+
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'django.db.backends.sqlite3',
@@ -142,10 +142,10 @@ LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = 'smtpdjango2021@gmail.com'
-EMAIL_HOST_PASSWORD = 'Assignment1!'
-EMAIL_PORT = 587
+EMAIL_HOST = os.environ.get('EMAIL_HOST')
+EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
+EMAIL_PORT = os.environ.get('EMAIL_PORT')
 EMAIL_USE_TLS = True
 
 django_heroku.settings(locals())
