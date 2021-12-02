@@ -22,9 +22,6 @@ def post_list(request):
             object_list = Post.objects.all().order_by('-publish')
         else:
             object_list = Post.objects.order_by('-publish').filter(Q(title__icontains=query) | Q(author__first_name__icontains=query) | Q(author__last_name__icontains=query) | Q(description__icontains=query))
-
-    # object_list = Post.objects.all()
-
     paginator = Paginator(object_list, 6)  # 6 posts in each page
     page = request.GET.get('page')
     try:
