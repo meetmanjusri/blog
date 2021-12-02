@@ -14,7 +14,17 @@ class PostForm(forms.ModelForm):
         # Reference - https://stackoverflow.com/questions/41224035/django-form-field-label-how-to-change-its-value-if-it-belongs-to-a-certain-fi
         labels = {'visited_date': "Visited Date"}
         # Reference https://stackoverflow.com/questions/3367091/whats-the-cleanest-simplest-to-get-running-datepicker-in-django
-        widgets = {'visited_date': DateInput(attrs={'type': 'date', 'placeholder':'Select a date'})}
+        widgets = {'visited_date': DateInput(attrs={'type': 'date', 'placeholder': 'Select a date'})}
+
+    def __init__(self, *args, **kwargs):
+        super(PostForm, self).__init__(*args, **kwargs)
+        self.fields['visited_places'].required = False
+        self.fields['visited_date'].required = False
+        self.fields['favorite_place'].required = False
+        self.fields['address'].required = False
+        self.fields['city'].required = False
+        self.fields['postal_code'].required = False
+        self.fields['favorite_activity'].required = False
 
 
 class CommentForm(forms.ModelForm):

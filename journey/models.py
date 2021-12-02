@@ -9,14 +9,14 @@ class Post(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='blog_posts')
     image_url = models.URLField()
     visited_places = models.CharField(max_length=100)
-    visited_date = models.DateField('Date')
+    visited_date = models.DateField('Date', null=True)
     favorite_place = models.CharField(max_length=250)
     address = models.CharField(max_length=250)
     city = models.CharField(max_length=100)
     postal_code = models.CharField(max_length=20)
     favorite_activity = models.CharField(max_length=250)
     # Reference - https://www.youtube.com/watch?v=mF5jzSXb1dc
-    description = RichTextField(blank=True, null=True)
+    description = RichTextField()
     publish = models.DateTimeField(default=timezone.now)
     updated = models.DateTimeField(auto_now=True)
 
