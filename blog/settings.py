@@ -24,7 +24,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 # DEBUG = False  # For heroku
-DEBUG = os.environ.get('DEBUG')  # For Local
+DEBUG = os.environ.get('DEBUG')  # DEBUG = True for local
 
 ALLOWED_HOSTS = ['127.0.0.1', 'diaryofjourney.herokuapp.com/']
 
