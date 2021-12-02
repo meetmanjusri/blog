@@ -25,7 +25,7 @@
                 <p>City: {{ post.city }}</p>
                 <p>Postal Code: {{ post.postal_code }}</p>
                 <p class="mb-3">Favorite Activity: {{ post.favorite_activity }}</p>
-                {% if post.author == user%}
+                {% if post.author == user or user.is_superuser %}
                     <a href="{% url 'journey:post_edit' pk=post.pk %}"
                        class="btn btn-warning">Edit</a>
                     <a href="{% url 'journey:post_delete' pk=post.pk %}"
