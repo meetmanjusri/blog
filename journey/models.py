@@ -16,7 +16,7 @@ class Post(models.Model):
     postal_code = models.CharField(max_length=20)
     favorite_activity = models.CharField(max_length=250)
     # Reference - https://www.youtube.com/watch?v=mF5jzSXb1dc
-    description = RichTextField(blank=True, null=True)
+    description = RichTextField()
     publish = models.DateTimeField(default=timezone.now)
     updated = models.DateTimeField(auto_now=True)
 
