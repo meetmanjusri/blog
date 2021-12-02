@@ -13,7 +13,7 @@
             <h2 class="fs-4 fw-bold">{{ post.title }}</h2>
             <h2 class="fs-5 fst-italic">{{ post.author.get_full_name }}</h2>
         </div>
-        <div class="row gx-4 row-cols-2 row-cols-sm-1 row-cols-lg-2 row-cols-xl-2 justify-content-right">
+        <div class="row gx-4 row-cols-2 row-cols-sm-1 row-cols-lg-2 row-cols-xl-2 justify-content-right mb-3">
             <div class="col">
                 <img class="card-img-top" src="{{ post.image_url }}" alt="image">
             </div>
@@ -24,11 +24,17 @@
                 <p>Address: {{ post.address }}</p>
                 <p>City: {{ post.city }}</p>
                 <p>Postal Code: {{ post.postal_code }}</p>
-                <p>Favorite Activity: {{ post.favorite_activity }}</p>
+                <p class="mb-3">Favorite Activity: {{ post.favorite_activity }}</p>
+                {% if post.author == user %}
+                    <a href="{% url 'journey:post_edit' pk=post.pk %}" class="btn btn-warning">Edit</a>
+                    <a href="{% url 'journey:post_delete' pk=post.pk %}"
+                       onclick="return confirm('Are you sure you want to delete?')"
+                       class="btn btn-danger">Delete</a>
+                {% endif %}
             </div>
         </div>
-        <div class="row" style="padding-top: 5px;">
-            <h4>Description</h4>
+        <div class="row">
+            <p class="h4">Description</p>
             <p>{{ post.description|safe }}</p>
         </div>
         {% with comments.count as total_comments %}

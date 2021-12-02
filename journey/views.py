@@ -1,5 +1,6 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login
+from django.http import HttpRequest
 from django.shortcuts import get_object_or_404
 from django.core.paginator import Paginator, EmptyPage,\
                                   PageNotAnInteger
@@ -72,7 +73,13 @@ def post_edit(request, pk):
             post = form.save(commit=False)
             post.updated_date = timezone.now()
             post.save()
-            return redirect('journey:post_list')
+            if request.user.is_superuser:
+                return redirect('journey:post_detail')
+            else:
+                newrequest = HttpRequest()
+                newrequest.method = 'GET'
+                newrequest.user = request.user
+                return blog_post(newrequest, post.pk)
     else:
         # edit
         form = PostForm(instance=post)
@@ -83,7 +90,10 @@ def post_edit(request, pk):
 def post_delete(request, pk):
     post = get_object_or_404(Post, pk=pk)
     post.delete()
-    return redirect('journey:post_detail')
+    if request.user.is_superuser:
+        return redirect('journey:post_detail')
+    else:
+        return redirect('journey:post_list')
 
 
 def blog_post(request, post_id):
