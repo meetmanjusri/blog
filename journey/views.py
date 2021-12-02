@@ -76,9 +76,10 @@ def post_edit(request, pk):
             if request.user.is_superuser:
                 return redirect('journey:post_detail')
             else:
-                request = HttpRequest()
-                request.method = 'GET'
-                return blog_post(request, post.pk)
+                newrequest = HttpRequest()
+                newrequest.method = 'GET'
+                newrequest.user = request.user
+                return blog_post(newrequest, post.pk)
     else:
         # edit
         form = PostForm(instance=post)
