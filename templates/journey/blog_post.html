@@ -2,20 +2,14 @@
 {% load static %}
 {% block title %}Posts{% endblock %}
 {% block content %}
-    <style>
-        img {
-            height: 350px;
-            object-fit: cover;
-        }
-    </style>
     <div class="container">
         <div class="row">
             <h2 class="fs-4 fw-bold">{{ post.title }}</h2>
             <h2 class="fs-5 fst-italic">{{ post.author.get_full_name }}</h2>
         </div>
-        <div class="row gx-4 row-cols-2 row-cols-sm-1 row-cols-lg-2 row-cols-xl-2 justify-content-right mb-3">
+        <div class="row gx-4 row-cols-1 row-cols-sm-1 row-cols-lg-2 row-cols-xl-2 justify-content-right mb-3">
             <div class="col">
-                <img class="card-img-top" src="{{ post.image_url }}" alt="image">
+                <img class="img-fluid img-thumbnail rounded mx-auto d-block" src="{{ post.image_url }}" alt="image">
             </div>
             <div class="col">
                 <p>Visited Places: {{ post.visited_places }}</p>

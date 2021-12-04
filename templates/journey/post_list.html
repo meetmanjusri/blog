@@ -2,20 +2,14 @@
 {% load static %}
 {% block title %}Posts{% endblock %}
 {% block content %}
-    <style>
-        img {
-            height: 300px;
-            object-fit: cover;
-        }
-    </style>
     {#        Reference - https://startbootstrap.com/template/shop-homepage#}
-    <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-sm-1 row-cols-lg-3 row-cols-xl-3 justify-content-right">
+    <div class="row gx-4 gx-lg-5 row-cols-1 row-cols-sm-1 row-cols-lg-3 row-cols-xl-3 justify-content-right">
         {% for post in posts %}
             <div class="col mb-5">
-                <div class="card h-100">
+                <div>
                     <!-- Post image-->
                     <a href="{% url 'journey:blog_post' post_id=post.pk %}">
-                        <img class="card-img-top" src="{{ post.image_url }}" alt="image">
+                        <img class="img-fluid img-thumbnail rounded mx-auto d-block" src="{{ post.image_url }}" alt="image">
                     </a>
                     <!-- Post details-->
                     <div class="card-body p-3">
