@@ -3,7 +3,7 @@
 {% block title %}Posts{% endblock %}
 {% block content %}
     <style>
-        img {
+        img.home {
             height: 300px;
             object-fit: cover;
         }
@@ -15,7 +15,7 @@
                 <div>
                     <!-- Post image-->
                     <a href="{% url 'journey:blog_post' post_id=post.pk %}">
-                        <img class="card-img rounded" src="{{ post.image_url }}" alt="image">
+                        <img class="card-img home rounded" src="{{ post.image_url }}" alt="image">
                     </a>
                     <!-- Post details-->
                     <div class="card-body p-3">
